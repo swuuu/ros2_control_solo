@@ -126,7 +126,7 @@ target_link_boost_python(reactive_planners_cpp PRIVATE)
 install(TARGETS
         reactive_planners_cpp
         DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/../../src/solo12/ros2_control_test_nodes/ros2_control_test_nodes/reactive_planners
+        ${CMAKE_INSTALL_PREFIX}/../../src/ros2_control_solo-1/ros2_control_test_nodes/ros2_control_test_nodes/reactive_planners
 )
 
 if (BUILD_TESTING)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import rclpy
 from ros2_control_test_nodes.node import RobotControllers
 

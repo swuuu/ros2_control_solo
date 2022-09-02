@@ -19,7 +19,9 @@ Here are the dependencies used.
 - pybind11 from [here](https://github.com/pybind/pybind11)
 
 You can also run `rosdep install --from-paths src --ignore-src -r -y` to install everything in one command, but it might miss a dependency (as I might not have listed all dependencies). 
-Once the dependencies are installed, build the workspace with `colcon build --symlink-install`.
+Once the dependencies are installed, build the workspace with `colcon build --symlink-install`. Note that if building the workspace consumes too much memory, you can try instead
+`MAKEFLAGS="-j1 -l1" colcon build --symlink-install --executor sequential`. **Since we use `--symlink-install`, you will also need to 
+`chmod +x ros2_control_test_nodes/ros2_control_test_nodes/test_controllers.py`, in order for one of the launch files to execute this node.** 
 ## Running the simulation
 
 The following commands runs a PD controller on SOLO in Gazebo using the implementation of the ROS node in Python. **Note that before running the simulation, 
@@ -30,16 +32,12 @@ in the package ros2_description_solo, on line 1031 of the file urdf/solo12_simul
 3. `ros2 launch ros2_control_solo_bringup solo_test_controllers.launch.py` starts the test_controllers node while leaving the simulation paused.
 4. `ros2 service call trigger_PD std_srvs/srv/Trigger` starts the PD controller.
 
-To let SOLO start walking, you can unpause the simulation and run `ros2 service call trigger_walk std_srvs/srv/Trigger`.
+To let SOLO start walking (which might not be working since I am currently working on it), you can unpause the simulation and run `ros2 service call trigger_walk std_srvs/srv/Trigger`.
 
 ## Repository Description
 
-[doc](doc): not in use. Can be removed.
-
 [models](models): stores the world files and model files used by the world files.
-- a plugin was added to the default `empty.world`, so the current position and orientation of the robot could be read from Gazebo.
-
-[ros2_control_solo](ros2_control_solo): not in use. Can be removed.
+- a plugin was added to the default `empty.world`, so the current position and orientation of SOLO could be read from Gazebo.
 
 [ros2_control_solo_bringup](ros2_control_solo_bringup): composed of launch files and yaml files storing parameters. Relevant files are:
 - `solo_system_position_only_gazebo.launch.py` launches Gazebo to simulate the robot.
@@ -47,9 +45,6 @@ To let SOLO start walking, you can unpause the simulation and run `ros2 service 
 - `solo_test_controllers_cpp.launch.py` launches a ROS2 node implemented in C++ running controllers.
 - In the config folder, `solo_gazebo_test_controllers.yaml` is called by `solo12.urdf.xacro` and `solo12_simulation.sdf` in the ros2_description_solo package. It contains parameters used by ros2_control.
 - Also in the config folder, `solo_test_controllers.yaml` is called by `solo_test_controllers.launch.py` and `solo_test_controllers_cpp.launch.py`. This yaml file ccontains parameters for the controllers.
-- The other launch files and yaml files are not used for now (can be removed).
-
-[ros2_control_solo_tuto](ros2_control_solo_tuto): tutorial files for launching Bolt. Not relevant for this repository. Can be removed.
 
 [ros2_control_test_nodes](ros2_control_test_nodes): contains the implementation of the controllers.
 - C++ code is the src and include subdirectories.
@@ -61,12 +56,9 @@ the [robot_properties_solo](https://github.com/open-dynamic-robot-initiative/rob
 
 [ros2_description_solo](ros2_description_solo): contains the description and meshes files for SOLO 12.
 - the 2 folders in use are meshes and urdf
-- the rest of the folders are not used. Can be removed.
-- In the urdf subdirectory, `solo12_simulation.sdf` is manually generated from `solo12.urdf.xacro`. This SDF file is used to spawn SOLO in Gazebo. The SDF file has contact and friction properties that the xacro/URDF file cannot specify. These parameters were manually added.   
-
-[ros2_hardware_interface_solo](ros2_hardware_interface_solo): not in use. Can be removed.
+- In the urdf subdirectory, `solo12_simulation.sdf` is manually generated from `solo12.urdf.xacro`. This SDF file is used to spawn SOLO in Gazebo. The SDF file has contact and friction properties that the xacro/URDF file cannot specify. These parameters were manually added.
 
 ## Notes
 
 - The ros2_control_test_nodes package has a lot of files for different controllers. It might be better to create an individual package for each controller and language (Python and C++).
-- package.xml files need to be updated.
+- package.xml and README.md files for individual packages need to be updated.

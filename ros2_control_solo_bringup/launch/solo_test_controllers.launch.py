@@ -18,7 +18,7 @@ def generate_launch_description():
         [
             Node(
                 package="ros2_control_test_nodes",
-                executable="test_controllers",
+                executable="test_controllers.py",
                 name="test_controllers",
                 parameters=[efforts],
                 output={
