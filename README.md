@@ -20,7 +20,8 @@ Here are the dependencies used.
 
 You can also run `rosdep install --from-paths src --ignore-src -r -y` to install everything in one command, but it might miss a dependency (as I might not have listed all dependencies). 
 Once the dependencies are installed, build the workspace with `colcon build --symlink-install`. Note that if building the workspace consumes too much memory, you can try instead
-`MAKEFLAGS="-j1 -l1" colcon build --symlink-install --executor sequential`.
+`MAKEFLAGS="-j1 -l1" colcon build --symlink-install --executor sequential`. Finally, if this is your first time building the workspace, it might throw an error about 
+a package not found. If so, source your workspace (i.e., `source install/setup.bash`) and try again.
 
 ## Running the simulation
 
