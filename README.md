@@ -6,7 +6,7 @@ This repository simulates a quadruped robot, [SOLO 12](https://github.com/open-d
 Gazebo simulator. Furthermore, this repository relies only on the effort interface from ROS2_control.
 
 ## Installations
-Here are the dependencies used.
+We use ROS 2 Foxy. Here are the dependencies used.
 - ros2-control
 - ros2-controllers
 - ros-foxy-gazebo-ros-pkgs
@@ -15,8 +15,11 @@ Here are the dependencies used.
 - ros-foxy-realtime-tools
 - ros-foxy-angles
 - odri-control-interface and master-board directories from this [link](https://github.com/open-dynamic-robot-initiative/odri_control_interface). These packages and the ones listed below should go in the `src` folder of your workspace.
+    - The instructions for getting those packages are available in the README.md file from the link above. Once you compile and obtain them, you can create a symbolic link to the src folder of your current workspace (e.g., for odri-control-interface, `ln -s path-to-odri-control-interface-package path-to-your-workspace-src-folder`)
 - mpi_cmake_modules from [here](https://github.com/machines-in-motion/mpi_cmake_modules)
-- pybind11 from [here](https://github.com/pybind/pybind11)
+- pybind11 from [here](https://github.com/pybind/pybind11) 
+- eigenpy from [here](https://github.com/stack-of-tasks/eigenpy)
+- doxygen
 
 You can also run `rosdep install --from-paths src --ignore-src -r -y` to install everything in one command, but it might miss a dependency (as I might not have listed all dependencies). 
 Once the dependencies are installed, build the workspace with `colcon build --symlink-install`. Note that if building the workspace consumes too much memory, you can try instead
