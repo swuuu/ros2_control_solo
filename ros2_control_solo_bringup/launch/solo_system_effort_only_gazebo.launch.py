@@ -38,8 +38,11 @@ def generate_launch_description():
         description='Absolute path to world file'
     )
 
+    # Set use_sim_time to true 
     declare_use_sim_time = (DeclareLaunchArgument(name='use_sim_time', default_value='True',
                                                   description='Flag to enable use_sim'))
+    use_sim_time = LaunchConfiguration('use_sim_time', default='True')
+    use_sim_time_arg = {"use_sim_time": use_sim_time}
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -70,7 +73,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
-        parameters=[robot_description],
+        parameters=[use_sim_time_arg, robot_description],
     )
 
     # Using a URDF file
@@ -94,6 +97,7 @@ def generate_launch_description():
         executable="spawner.py",
         arguments=["joint_state_broadcaster"],
         output="screen",
+        # parameters=[use_sim_time_arg]
     )
 
     spawn_controller_effort = Node(
@@ -101,6 +105,7 @@ def generate_launch_description():
         executable="spawner.py",
         arguments=["effort_controllers"],
         output="screen",
+        # parameters=[use_sim_time_arg]
     )
 
     return LaunchDescription(

@@ -125,11 +125,4 @@
         <!--        <gravity>true</gravity>-->
     </gazebo>
 
-    <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find ros2_control_solo_bringup)/config/solo_gazebo_forward_controller_position.yaml
-            </parameters>
-        </plugin>
-    </gazebo>
-
 </robot>

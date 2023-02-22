@@ -1028,7 +1028,7 @@
     </link>
     <static>0</static>
     <plugin name='gazebo_ros2_control' filename='libgazebo_ros2_control.so'>
-      <parameters>/home/stanley/Documents/McGill/robotics/foxy_ws/install/ros2_control_solo_bringup/share/ros2_control_solo_bringup/config/solo_gazebo_test_controllers.yaml</parameters>
+      <parameters>/home/stanley/Documents/McGill/robotics/solo_ws/install/ros2_control_solo_bringup/share/ros2_control_solo_bringup/config/solo_gazebo_test_controllers.yaml</parameters>
     </plugin>
   </model>
 </sdf>
